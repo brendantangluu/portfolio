@@ -69,21 +69,8 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                         <AccordionHeader className = {`${isDarkMode ? darkMode : lightMode } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>{item.title.rendered}</AccordionHeader>
                         <AccordionBody className = {isDarkMode ? darkMode : lightMode}>
                             <img className = "mb-4" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
-                            
-                            {/* loop and display tools used */}
-                            {item.acf.tools_used && (
-                                <div className='flex'>
-                                    {item.acf.tools_used.map((tool, index) => (
-                                        <p className = {`mr-2 mb-4 p-1 rounded-lg font-bold border ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
-                                    ))}
-                                </div>
-                            )}
-
-
-                            <h3>{item.acf.overview_heading}</h3>
-                            <p>{item.acf.overview}</p>
                             {/* Social Links */}
-                            <div className="flex items-center space-x-2 pt-2">
+                            <div className="flex items-center space-x-2 py-4">
                                 {item.acf.social_links && item.acf.social_links.map((link) => (
                                     <>
                                         {/* Include SVG for btech.codes link */}
@@ -100,10 +87,20 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     </>
                                 ))}
                             </div>
+                            <h3>{item.acf.overview_heading}</h3>
+                            <p>{item.acf.overview}</p>
+                            {/* loop and display tools used */}
+                            {item.acf.tools_used && (
+                                <div className='flex'>
+                                    {item.acf.tools_used.map((tool, index) => (
+                                        <p className = {`mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
+                                    ))}
+                                </div>
+                            )}
                             {item.acf['sub-tabs'] && item.acf['sub-tabs'].filter(subTab => subTab.heading_tab !== "").length > 0 && (
                                 <Tabs className = "mt-4" value={item.acf['sub-tabs'].map(subTab => subTab.heading_tab)}>
                                     <TabsHeader
-                                        className="rounded-none border-b border-blue-gray-50 bg-transparent p-0"
+                                        className={`rounded-none border-b border-blue-gray-50 bg-transparent p-0`}
                                         indicatorProps={{
                                         className:
                                             "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
@@ -117,7 +114,12 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                             )
                                         ))}
                                     </TabsHeader>
-                                    <TabsBody>
+                                    <TabsBody
+                                        animate={{
+                                            initial: { x: 250 },
+                                            mount: { x: 0 },
+                                            unmount: { x: 250 },
+                                        }}>
                                         {item.acf['sub-tabs'].map((subTab) => (
                                             <TabPanel className = {isDarkMode ? darkMode : lightMode} key={subTab.information_description} value={subTab.heading_tab}>
                                                 <h4>{subTab.information_sub_heading}</h4>

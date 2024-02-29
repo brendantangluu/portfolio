@@ -5,13 +5,14 @@ const withMT = require("@material-tailwind/react/utils/withMT");
 module.exports = withMT({
   content: [ 
     "./index.html",
-  "./src/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
 ],
   theme: {
-    extend: {},
-    fontFamily: {
-      'sans': ['Inter', 'sans-serif']
-    }
+    extend: {
+      fontFamily: {
+        inter: ["Inter Tight", "sans-serif"],
+      }
+    },
   },
   plugins: [],
 });

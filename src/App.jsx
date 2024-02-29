@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import { Link } from 'react-router-dom'
-import { NavLink } from 'react-router-dom'
 import Home from './components/Home'
 import { ThemeProvider } from './DarkModeContext.jsx/ThemeContext'
 
@@ -10,7 +8,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <main id="main">
+        <main className='font-inter' id="main">
           <Routes>
               <Route path='/' element={<Home restBase={restBase} />} />
           </Routes>
