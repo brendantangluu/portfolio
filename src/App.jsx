@@ -1,14 +1,22 @@
-import './App.css';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { NavLink } from 'react-router-dom'
+import Home from './components/Home'
+import { ThemeProvider } from './DarkModeContext.jsx/ThemeContext'
 
 function App() {
-
-  const restBase = 'btech.codes/portfolio/wp-json/wp/v2/'
-
+  
+  const restBase = 'https://btech.codes/portfolio/wp-json/wp/v2/'
   return (
-    <Router basename ='/portfolio'>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <main id="main">
+          <Routes>
+              <Route path='/' element={<Home restBase={restBase} />} />
+          </Routes>
+        </main>
+      </Router>
+    </ThemeProvider>
   )
 }
 
