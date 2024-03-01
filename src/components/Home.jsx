@@ -84,7 +84,7 @@ function Home({restBase}){
                         <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
                     </section>
                     <section id = "timeline" className='pt-4'>
-                        <h2 className='pb-5 pt-5 underline'>{restDataCPT['timeline'].name}</h2>
+                        <h2 className='pb-5 pt-5 underline'>{restDataCPT['legacy-projects'].name}</h2>
                         <ProjectTimeline restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} />
                     </section>
                 </div>

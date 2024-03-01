@@ -1,5 +1,4 @@
 import {useState, useEffect, useContext} from 'react'
-import Loading from './Loading'
 import { Timeline,
     TimelineItem,
     TimelineConnector,
@@ -13,7 +12,7 @@ import { Timeline,
     CardBody,} from "@material-tailwind/react";
 
 function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
-    const restPath = restBase + 'timeline?_embed'
+    const restPath = restBase + 'legacy?_embed'
     const [restData, setData] = useState([])
     const [isLoaded, setLoadStatus] = useState(false)
     
@@ -37,14 +36,14 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
         fetchData()
     }, [restPath])
 
-    console.log(restData)
+    
 
     return(
         <>
-            {restData && restData.map(item => (
+            {restData && restData.map((item, index) => (
                 <Timeline>
                     <TimelineItem>
-                        <TimelineConnector />
+                    {index !== restData.length - 1 && <TimelineConnector />} {/* Render TimelineConnector for all except the last item */}
                         <TimelineHeader className="h-3">
                             <TimelineIcon className={isDarkMode ? lightMode : darkMode} />
                             <Typography variant="h2" className="leading-none text-base uppercase">

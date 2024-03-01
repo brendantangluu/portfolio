@@ -59,6 +59,8 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
         fetchData()
     }, [restPath])
 
+
+    
     return(
         <>
         {isLoaded ?
