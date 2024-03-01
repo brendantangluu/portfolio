@@ -3,6 +3,11 @@ import Loading from './Loading'
 import FeaturedProjects from './FeaturedProjects'
 import ThemeContext from '../DarkModeContext.jsx/ThemeContext'
 import ProjectTimeline from './Timeline'
+import Stack from './Stack'
+import { GrProjects} from "react-icons/gr";
+import { HiHome } from "react-icons/hi";
+import { FaFolder } from "react-icons/fa";
+import { IoTimer } from "react-icons/io5";
 
 function Home({restBase}){
 
@@ -12,8 +17,8 @@ function Home({restBase}){
     const [restDataCPT, setDataCPT] = useState([])
     const [isLoaded, setLoadStatus] = useState(false)
     const [content, setContent] = useState("");
-    const lightMode = "text-black bg-white"
-    const darkMode = "text-white bg-black"
+    const lightMode = "text-[#18181b] bg-white"
+    const darkMode = "text-white bg-[#18181b]"
     const lightModeSvg = "black"
     const darkModeSvg = "white"
 
@@ -54,39 +59,69 @@ function Home({restBase}){
         { isLoaded ?
             <>
                 <div className = {`transition-all duration-600 relative p-6 pt-10 ${!isDarkMode ? lightMode : darkMode}`}>
-                    <header>
-                        <button className = {`transition-all duration-600 p-2 mx-4 fixed right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
-                            {isDarkMode ? moon : sun}
-                        </button>
-                        <section id = "intro-hero" className='pt-14'>
-                            <h1 className='text-5xl'>{restData.acf.name}</h1>
-                            <h2 className='uppercase pt-4'>{restData.acf.job_title}</h2>
-                            <p className='pt-4 pb-10 italic'>{restData.acf.tagline}</p>
-                        </section>
-                        <section id = "about-me">
-                            <h2 className='pb-5 underline'>{restData.acf.about_me_heading}</h2>
-                            <div dangerouslySetInnerHTML={{ __html: content }} />
-                        </section>
-                        <section id = "socials" className='flex pt-6 pb-8'>
-                            <a className = "pr-2" href={restData.acf.socials[0].github}>
-                                {github}
-                            </a>
-                            <a className = "pr-2" href={restData.acf.socials[0].linkedin}>
-                                {linkedin}
-                            </a>
-                            <a className = "pr-2" href={restData.acf.socials[0].email}>
-                                {email}
-                            </a>
-                        </section>
-                    </header>
+                    <section id = "hero_sidebar-section">
+                        <header>
+                            <button className = {`transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
+                                {isDarkMode ? moon : sun}
+                            </button>
+                            <section id = "intro-hero" className='pt-14'>
+                                <h1 className='text-5xl'>{restData.acf.name}</h1>
+                                <h2 className='uppercase pt-4'>{restData.acf.job_title}</h2>
+                                <p className='pt-4 pb-10 italic'>{restData.acf.tagline}</p>
+                            </section>
+                            <section id = "about-me">
+                                <h2 className='pb-5 '>{restData.acf.about_me_heading}</h2>
+                                <div dangerouslySetInnerHTML={{ __html: content }} />
+                            </section>
+                            <section id = "socials" className='flex pt-6 pb-8'>
+                                <a className = "pr-2" href={restData.acf.socials[0].github}>
+                                    {github}
+                                </a>
+                                <a className = "pr-2" href={restData.acf.socials[0].linkedin}>
+                                    {linkedin}
+                                </a>
+                                <a className = "pr-2" href={restData.acf.socials[0].email}>
+                                    {email}
+                                </a>
+                            </section>
+                        </header>
+                    </section>
                     <section id = "featured-projects">
-                        <h2 className='pb-5 pt-5 underline'>{restDataCPT['featured-projects'].name}</h2>
+                        <h2 className='pb-5 pt-5 '>{restDataCPT['featured-projects'].name}</h2>
                         <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
                     </section>
-                    <section id = "timeline" className='pt-4'>
-                        <h2 className='pb-5 pt-5 underline'>{restDataCPT['legacy-projects'].name}</h2>
+                    <section id = "legacy" className='pt-4'>
+                        <h2 className='pb-5 pt-5 '>{restDataCPT['legacy-projects'].name}</h2>
                         <ProjectTimeline restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} />
                     </section>
+                    <section id = "stack">
+                        <h2 className='pb-5 pt-5 '>{restDataCPT['stack'].name}</h2>
+                        <Stack restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode}/>
+                    </section>
+                    <nav className={`fixed right-16 bottom-5 z-50 w-[300px] rounded-xl ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
+                        <ul className='flex space-x-10 justify-center py-3'>
+                            <li>
+                                <a href="#hero_sidebar-section">
+                                    <HiHome className = {`${!isDarkMode ? "hover:#A3A3A3" : "hover:text-[#18181b]"}`} size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#featured-projects">
+                                    <GrProjects size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#legacy">
+                                    <FaFolder size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#stack">
+                                    <IoTimer size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
             </>
         : 

@@ -10,8 +10,4 @@ h2{
     font-size: 1.5rem;
 }
 
-svg:hover{
-    fill: rgb(158 158 158 / var(--tw-text-opacity));
-    transition: fill 150ms ease, transform 150ms ease;
-    transform: translateY(-0.125rem);
-}
+
