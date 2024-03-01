@@ -58,18 +58,22 @@ function Home({restBase}){
 
     useEffect(() => {
         AOS.init({
+            startEvent: 'DOMContentLoaded',
             duration: 700,
-            easing: "ease-out-cubic",
-            offset: 200 // Adjust offset if needed
+            once: false,
         });
       }, [])
+
+      useEffect(() => {
+        AOS.refresh();
+      }, [isDarkMode])
 
     return(
         <>
         { isLoaded ?
             <>
                 <div className = {`transition-all duration-600 relative p-6 pt-10 ${!isDarkMode ? lightMode : darkMode}`}>
-                    <section id = "hero_sidebar-section">
+                    <section data-aos="fade-in" id = "hero_sidebar-section">
                         <header>
                             <button className = {`transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
                                 {isDarkMode ? sun : moon}
@@ -96,38 +100,38 @@ function Home({restBase}){
                             </section>
                         </header>
                     </section>
-                    <section id = "featured-projects">
+                    <section data-aos="fade-up" id = "featured-projects">
                         <h2 className='pb-5 pt-5 '>{restDataCPT['featured-projects'].name}</h2>
                         <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
                     </section>
-                    <section  id = "legacy" className='pt-4'>
+                    <section data-aos="fade-up" id = "legacy" className='pt-4'>
                         <h2 className='pb-5 pt-5 '>{restDataCPT['legacy-projects'].name}</h2>
                         <ProjectTimeline restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} />
                     </section>
-                    <section id = "stack">
+                    <section data-aos="fade-up" id = "stack">
                         <h2 className='pb-5 pt-5 '>{restDataCPT['stack'].name}</h2>
                         <Stack restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode}/>
                     </section>
-                    <nav className={`fixed right-16 bottom-5 z-50 w-[300px] rounded-xl ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
+                    <nav data-aos="fade-up" data-aos-delay="10" data-aos-duration="500" data-aos-easing="ease-in-out" className={`fixed left-8 bottom-5 z-50 w-[250px] rounded-xl ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
                         <ul className='flex space-x-10 justify-center py-3'>
                             <li>
                                 <a href="#hero_sidebar-section">
-                                    <HiHome className = {`${!isDarkMode ? "hover:#A3A3A3" : "hover:text-[#18181b]"}`} size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <HiHome className = {`${!isDarkMode ? "hover:#A3A3A3" : "hover:text-[#18181b]"}`} size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                 </a>
                             </li>
                             <li>
                                 <a href="#featured-projects">
-                                    <GrProjects size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <GrProjects size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                 </a>
                             </li>
                             <li>
                                 <a href="#legacy">
-                                    <FaFolder size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <FaFolder size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                 </a>
                             </li>
                             <li>
                                 <a href="#stack">
-                                    <IoTimer size = {30} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <IoTimer size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                 </a>
                             </li>
                         </ul>

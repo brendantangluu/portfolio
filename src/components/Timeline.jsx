@@ -46,7 +46,7 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
                     {index !== restData.length - 1 && <TimelineConnector />} {/* Render TimelineConnector for all except the last item */}
                         <TimelineHeader className="h-3">
                             <TimelineIcon className={isDarkMode ? lightMode : darkMode} />
-                            <Typography variant="h2" className="leading-none text-xl uppercase">
+                            <Typography variant="h2" className="leading-none text-base uppercase">
                                 {item.title.rendered}
                             </Typography>
                         </TimelineHeader>

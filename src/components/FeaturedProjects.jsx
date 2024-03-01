@@ -67,8 +67,8 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
             <>
             {/* Carousel made with Material Tailwind https://www.material-tailwind.com/docs/react/carousel */}
                 {restData.map(item => (
-                    <Accordion className = "rounded-lg border mb-2 p-2" key={item.id} open={open === item.id} icon={<Icon id={item.id} open={open} />}>
-                        <AccordionHeader className = {`${isDarkMode ? darkMode : lightMode } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>{item.title.rendered}</AccordionHeader>
+                    <Accordion className = {`rounded-lg border mb-2 p-2 ${isDarkMode ? "border-white" : "border-[#18181b]"}`} key={item.id} open={open === item.id} icon={<Icon id={item.id} open={open} />}>
+                        <AccordionHeader className = {`${isDarkMode ? 'text-white border-white' : 'text-[#18181b] border-b-[#18181b]' } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>{item.title.rendered}</AccordionHeader>
                         <AccordionBody className = {isDarkMode ? darkMode : lightMode}>
                             <img className = "mb-4" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
                             {/* Social Links */}
@@ -110,7 +110,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     >
                                         {item.acf['sub-tabs'].map((subTab) => (
                                             subTab.heading_tab !== "" && (
-                                                <Tab className = "text-sm" key={subTab.heading_tab.id} value={subTab.heading_tab}>
+                                                <Tab className = {`text-sm ${isDarkMode ? "text-white" : "text-black"}`} key={subTab.heading_tab.id} value={subTab.heading_tab}>
                                                     {subTab.heading_tab}
                                                 </Tab>
                                             )
