@@ -28,7 +28,7 @@ function Icon({ id, open }) {
   }
 
 function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeSvg, darkModeSvg}){
-    const restPath = restBase + 'featured_projects?_embed'
+    const restPath = restBase + 'featured_projects?_embed&acf_format=standard'
     const [restData, setData] = useState([])
     const [isLoaded, setLoadStatus] = useState(false)
     
@@ -122,9 +122,29 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                         }}>
                                         {item.acf['sub-tabs'].map((subTab) => (
                                             <TabPanel className = {isDarkMode ? darkMode : lightMode} key={subTab.information_description} value={subTab.heading_tab}>
-                                                <h4>{subTab.information_sub_heading}</h4>
-                                                <img src={subTab.project_images.title} alt="" />
-                                                <p>{subTab.information_description}</p>
+                                            {subTab.additional_heading_tabs && subTab.additional_heading_tabs.additional_tabs.length != 0 ? (
+                                                <Tabs>
+                                                    <TabsHeader>
+                                                    {Object.keys(subTab.additional_heading_tabs).map((key, index) => (
+                                                        <Tab key={index} value={subTab.additional_heading_tabs[key].additional_tabs}>
+                                                            {subTab.additional_heading_tabs[key].additional_tabs}
+                                                        </Tab>
+                                                    ))}
+
+                                                    </TabsHeader>
+                                                    <TabsBody>
+                                                        {/* Render the body of additional tabs here */}
+                                                    </TabsBody>
+                                                </Tabs>
+                                            ) : (
+                                                <>
+                                                    <h4>{subTab.information_sub_heading}</h4>
+                                                    <img src={subTab.project_images.url} alt={subTab.project_images.alt} />
+                                                    {subTab.additional_heading_tabs.additional_tabs.length === 0 && (
+                                                        <p>{subTab.information_description}</p>
+                                                    )}
+                                                </>
+                                            )}
                                             </TabPanel>
                                         ))}
                                     </TabsBody>

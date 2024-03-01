@@ -2,7 +2,7 @@ import { useState, useEffect, useContext } from 'react'
 import Loading from './Loading'
 import FeaturedProjects from './FeaturedProjects'
 import ThemeContext from '../DarkModeContext.jsx/ThemeContext'
-import Timeline from './Timeline'
+import ProjectTimeline from './Timeline'
 
 function Home({restBase}){
 
@@ -55,7 +55,7 @@ function Home({restBase}){
             <>
                 <div className = {`transition-all duration-600 relative p-6 pt-10 ${!isDarkMode ? lightMode : darkMode}`}>
                     <header>
-                        <button className = {`transition-all duration-600 p-2 mx-4 fixed right-0 z-50 ${themeClass}`} onClick = {toggleTheme}>
+                        <button className = {`transition-all duration-600 p-2 mx-4 fixed right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
                             {isDarkMode ? moon : sun}
                         </button>
                         <section id = "intro-hero" className='pt-14'>
@@ -67,7 +67,7 @@ function Home({restBase}){
                             <h2 className='pb-5 underline'>{restData.acf.about_me_heading}</h2>
                             <div dangerouslySetInnerHTML={{ __html: content }} />
                         </section>
-                        <section id = "socials" className='flex pt-8'>
+                        <section id = "socials" className='flex pt-6 pb-8'>
                             <a className = "pr-2" href={restData.acf.socials[0].github}>
                                 {github}
                             </a>
@@ -83,7 +83,9 @@ function Home({restBase}){
                         <h2 className='pb-5 pt-5 underline'>{restDataCPT['featured-projects'].name}</h2>
                         <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
                     </section>
-                    <section id = "timeline">
+                    <section id = "timeline" className='pt-4'>
+                        <h2 className='pb-5 pt-5 underline'>{restDataCPT['timeline'].name}</h2>
+                        <ProjectTimeline restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} />
                     </section>
                 </div>
             </>
