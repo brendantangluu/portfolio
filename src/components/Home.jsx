@@ -99,6 +99,33 @@ function Home({restBase}){
                                         <h2 className='uppercase pt-4 lg:text-xl xl:text-2xl'>{restData.acf.job_title}</h2>
                                         <p className='pt-4 pb-10 italic xl:text-xl'>{restData.acf.tagline}</p>
                                     </section>
+                                    <section id = "desktop-nav" className='pb-10 hidden lg:block'>
+                                        <nav className='text-xl'>
+                                            <ul className='space-y-4'>
+                                                <li>
+                                                    <a href="#featured-projects">
+                                                        {restDataCPT['featured-projects'].name}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#legacy">
+                                                        {restDataCPT['legacy-projects'].name}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#stack"> 
+                                                        {restDataCPT['stack'].name}
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="#hobbies">
+                                                        {restDataCPT['hobbies'].name}
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </nav>
+
+                                    </section>
                                     <section id = "about-me">
                                         <h2 className='pb-5'>{restData.acf.about_me_heading}</h2>
                                         <div className="md:w-[670px] lg:w-96 xl:text-xl" dangerouslySetInnerHTML={{ __html: content }} />
@@ -122,7 +149,7 @@ function Home({restBase}){
                             transition={{delay: 1.0, duration: 0.75, ease: "easeOut"}} 
                             data-aos="fade-up" 
                             id="content" 
-                            className="lg:flex-1 lg:overflow-y-auto">
+                            className="lg:flex-1 lg:overflow-y-auto lg:mt-8">
                                 <section id = "featured-projects">
                                     <h2 className='pb-5 pt-5 '>{restDataCPT['featured-projects'].name}</h2>
                                     <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
@@ -141,7 +168,7 @@ function Home({restBase}){
                                 </section>
                             </m.section>
                         </div>
-                        <nav data-aos="fade-up" data-aos-delay="10" data-aos-duration="500" data-aos-easing="ease-in-out" className={`fixed left-8 bottom-5 z-50 w-[250px] rounded-xl md:hidden ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
+                        <nav data-aos="fade-up" data-aos-delay="10" data-aos-duration="500" data-aos-easing="ease-in-out" className={`fixed left-8 bottom-5 z-50 w-[250px] rounded-xl lg:hidden ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
                             <ul className='flex space-x-10 justify-center py-3'>
                                 <li>
                                     <a href="#desktop-hero-mobile-top-section">
