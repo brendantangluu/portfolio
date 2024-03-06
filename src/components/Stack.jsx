@@ -21,7 +21,7 @@ import {
 } from "react-icons/si";
 
 function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
-    const restPath = restBase + 'stack?_embed&acf_format=standard';
+    const restPath = restBase + 'stack?_embed&acf_format=standard&orderby=id&order=asc';
     const [restData, setData] = useState([]);
 
     const svgComponents = {
@@ -65,7 +65,7 @@ function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
     return (
         <>
             {restData.map((tech) => (
-                <div className={`h-[400px] mb-4 p-2 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
+                <div className={`mb-4 p-2 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
                     <section>
                         <h2>{tech.title.rendered}</h2>
                         {tech.acf.stack && (
@@ -74,9 +74,9 @@ function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
                                     // Convert tool name to lowercase and remove whitespace and special characters
                                     const toolName = tool.toLowerCase().replace(/\s/g, '').replace(/\./g, '_');
                                     return (
-                                        <div key={index} className={`mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
+                                        <div key={index} className={`flex space-x-2 mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
                                             {svgComponents[toolName]}
-                                            <span>{tool}</span>
+                                            <p>{tool}</p>
                                         </div>
                                     );
                                 })}
