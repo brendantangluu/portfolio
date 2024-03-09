@@ -76,7 +76,7 @@ function Home({restBase}){
                 <>
                     <m.div
                     initial={{opacity: 0}} 
-                    animate={{opacity: 1}} 
+                    animate={{opacity: 1}}
                     transition={{delay: 0.5, duration: 0.75, ease: "easeOut"}}
                     className = {`transition-all duration-600 relative p-6 pt-10 lg:py-0 lg:px-8 ${!isDarkMode ? lightMode : darkMode}`}>
                         <button className = {`lg:hidden transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
@@ -102,7 +102,9 @@ function Home({restBase}){
                                     <section id = "desktop-nav" className='pb-10 hidden lg:block'>
                                         <nav className='text-xl'>
                                             <ul className='space-y-4'>
-                                                <li>
+                                                <li className='flex'>
+                                                    <div className='border border-r-2 border-black'>
+                                                    </div>
                                                     <a href="#featured-projects">
                                                         {restDataCPT['featured-projects'].name}
                                                     </a>

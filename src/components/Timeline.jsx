@@ -59,7 +59,7 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
                             <Collapse open={open === item.id}>
                             <Card key={item.id} className="my-4 mx-auto">
                                 <CardBody className={`space-y-2 ${isDarkMode ? lightMode : darkMode} rounded-xl`}>
-                                    <div className='flex flex-wrap justify-evenly'>
+                                    <div className='flex flex-wrap justify-center'>
                                         {item.acf.tools_used.map((tool, index) => (
                                             <p className = {`text-center mr-2 my-2 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `${darkMode}` : `${lightMode}`}`} key={index}>{tool}</p>
                                         ))}

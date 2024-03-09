@@ -68,9 +68,13 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
             {/* Carousel made with Material Tailwind https://www.material-tailwind.com/docs/react/carousel */}
                 {restData.map(item => (
                     <Accordion className = {`rounded-lg border mb-2 p-2 ${isDarkMode ? "border-white" : "border-[#18181b]"}`} key={item.id} open={open === item.id} icon={<Icon id={item.id} open={open} />}>
-                        <AccordionHeader className = {`${isDarkMode ? 'text-white border-white' : 'text-[#18181b] border-b-[#18181b]' } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>{item.title.rendered}</AccordionHeader>
-                        <AccordionBody className = {isDarkMode ? darkMode : lightMode}>
+                            <AccordionHeader className = {`${isDarkMode ? 'text-white border-white' : 'text-[#18181b] border-b-[#18181b]' } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>
+                                    <h3>{item.title.rendered}</h3>
+                                    {/* <img className = "ml-24 w-28 opacity-0 hover:opacity-100 hover:transition-all" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} /> */}
+                            </AccordionHeader>
+                        <AccordionBody className = {`p-6 ${isDarkMode ? darkMode : lightMode}`}>
                             <img className = "mb-4" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
+                            
                             {/* Social Links */}
                             <div className="flex items-center space-x-2 py-4">
                                 {item.acf.social_links && item.acf.social_links.map((link) => (
@@ -89,13 +93,14 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     </>
                                 ))}
                             </div>
-                            <h3>{item.acf.overview_heading}</h3>
-                            <p>{item.acf.overview}</p>
+                            <h3 className='md:text-2xl'>{item.acf.overview_heading}</h3>
+                            <p className='md:text-xl'>{item.acf.overview}</p>
+                            
                             {/* loop and display tools used */}
                             {item.acf.tools_used && (
                                 <div className='flex'>
                                     {item.acf.tools_used.map((tool, index) => (
-                                        <p className = {`mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
+                                        <p className = {`mr-2 my-4 p-1 px-2 rounded-lg font-bold border md:text-xl ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
                                     ))}
                                 </div>
                             )}
@@ -110,7 +115,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     >
                                         {item.acf['sub-tabs'].map((subTab) => (
                                             subTab.heading_tab !== "" && (
-                                                <Tab className = {`text-sm ${isDarkMode ? "text-white" : "text-black"}`} key={subTab.heading_tab.id} value={subTab.heading_tab}>
+                                                <Tab className = {`text-sm md:text-xl ${isDarkMode ? "text-white" : "text-black"}`} key={subTab.heading_tab.id} value={subTab.heading_tab}>
                                                     {subTab.heading_tab}
                                                 </Tab>
                                             )
@@ -140,10 +145,10 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                                 </Tabs>
                                             ) : (
                                                 <>
-                                                    <h4>{subTab.information_sub_heading}</h4>
+                                                    <h4 className=' pb-2 md:text-xl'>{subTab.information_sub_heading}</h4>
                                                     <img src={subTab.project_images.url} alt={subTab.project_images.alt} />
                                                     {subTab.additional_heading_tabs.additional_tabs.length === 0 && (
-                                                        <p>{subTab.information_description}</p>
+                                                        <p className='md:text-xl'>{subTab.information_description}</p>
                                                     )}
                                                 </>
                                             )}
@@ -152,8 +157,6 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     </TabsBody>
                                 </Tabs>
                             )}
-
-
                         </AccordionBody>
                     </Accordion>
                 ))}
