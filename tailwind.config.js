@@ -11,6 +11,9 @@ module.exports = withMT({
     extend: {
       fontFamily: {
         inter: ["Inter Tight", "sans-serif"],
+      },
+      screens:{
+        'desktop': '1920px',
       }
     },
   },

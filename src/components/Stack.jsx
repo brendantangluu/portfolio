@@ -20,30 +20,30 @@ import {
     SiBootstrap
 } from "react-icons/si";
 
+export const svgComponents = {
+    tailwind: <SiTailwindcss />,
+    html: <SiHtml5 />,
+    react: <SiReact />,
+    wordpress: <SiWordpress />,
+    github: <SiGithub />,
+    javascript: <SiJavascript />,
+    css: <SiCss3 />,
+    sass: <SiSass />,
+    php: <SiPhp />,
+    adobexd: <SiAdobexd />,
+    figma: <SiFigma />,
+    adobeillustrator: <SiAdobeillustrator />,
+    adobephotoshop: <SiAdobephotoshop />,
+    typescript: <SiTypescript />,
+    vue: <SiVuetify />,
+    node_js: <SiNodedotjs />,
+    python: <SiPython />,
+    bootstrap: <SiBootstrap />
+};
+
 function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
     const restPath = restBase + 'stack?_embed&acf_format=standard&orderby=id&order=asc';
     const [restData, setData] = useState([]);
-
-    const svgComponents = {
-        tailwind: <SiTailwindcss />,
-        html: <SiHtml5 />,
-        react: <SiReact />,
-        wordpress: <SiWordpress />,
-        github: <SiGithub />,
-        javascript: <SiJavascript />,
-        css: <SiCss3 />,
-        sass: <SiSass />,
-        php: <SiPhp />,
-        adobexd: <SiAdobexd />,
-        figma: <SiFigma />,
-        adobeillustrator: <SiAdobeillustrator />,
-        adobephotoshop: <SiAdobephotoshop />,
-        typescript: <SiTypescript />,
-        vue: <SiVuetify />,
-        node_js: <SiNodedotjs />,
-        python: <SiPython />,
-        bootstrap: <SiBootstrap />
-    };
 
     useEffect(() => {
         const fetchData = async () => {
