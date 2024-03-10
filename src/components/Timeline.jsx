@@ -46,12 +46,12 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
                     {index !== restData.length - 1 && <TimelineConnector />}
                         <TimelineHeader className="h-3">
                             <TimelineIcon className={isDarkMode ? lightMode : darkMode} />
-                            <Typography variant="h2" className="leading-none text-base uppercase">
+                            <Typography variant="h2" className="leading-none text-base uppercase md:text-xl">
                                 {item.title.rendered}
                             </Typography>
                         </TimelineHeader>
                         <TimelineBody className="pb-8">
-                            <Typography className="font-normal mb-2">
+                            <Typography className="italic mb-4 md:text-xl">
                                 {item.acf.date}
                             </Typography>
                             <img className = "rounded-lg" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />

@@ -72,38 +72,39 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     <h3>{item.title.rendered}</h3>
                                     {/* <img className = "ml-24 w-28 opacity-0 hover:opacity-100 hover:transition-all" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} /> */}
                             </AccordionHeader>
-                        <AccordionBody className = {`p-6 ${isDarkMode ? darkMode : lightMode}`}>
+                        <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
                             <img className = "mb-4" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
-                            
-                            {/* Social Links */}
-                            <div className="flex items-center space-x-2 py-4">
-                                {item.acf.social_links && item.acf.social_links.map((link) => (
-                                    <>
-                                        {/* Include SVG for btech.codes link */}
-                                        {link.links.includes("github") ? (
-                                            <a key = {link.id} href={link.links}>
-                                                {github}
-                                            </a>
-                                        ) : (
-                                        /* Render the link for non-btech.codes links */
-                                            <a key = {link.id} href={link.links} className="">
-                                                {globe}
-                                            </a>
-                                        )}
-                                    </>
-                                ))}
-                            </div>
-                            <h3 className='md:text-xl'>{item.acf.overview_heading}</h3>
-                            <p className='md:text-xl'>{item.acf.overview}</p>
-                            
-                            {/* loop and display tools used */}
-                            {item.acf.tools_used && (
-                                <div className='flex'>
-                                    {item.acf.tools_used.map((tool, index) => (
-                                        <p className = {`mr-2 my-4 p-1 px-2 rounded-lg font-bold border md:text-xl ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
+                            <div className='px-2'>
+                                {/* Social Links */}
+                                <div className="flex items-center space-x-2 py-4">
+                                    {item.acf.social_links && item.acf.social_links.map((link) => (
+                                        <>
+                                            {/* Include SVG for btech.codes link */}
+                                            {link.links.includes("github") ? (
+                                                <a key = {link.id} href={link.links}>
+                                                    {github}
+                                                </a>
+                                            ) : (
+                                            /* Render the link for non-btech.codes links */
+                                                <a key = {link.id} href={link.links} className="">
+                                                    {globe}
+                                                </a>
+                                            )}
+                                        </>
                                     ))}
                                 </div>
-                            )}
+                                <h3 className='md:text-xl'>{item.acf.overview_heading}</h3>
+                                <p className='md:text-xl'>{item.acf.overview}</p>
+                                
+                                {/* loop and display tools used */}
+                                {item.acf.tools_used && (
+                                    <div className='flex'>
+                                        {item.acf.tools_used.map((tool, index) => (
+                                            <p className = {`mr-2 my-4 p-1 px-2 rounded-lg font-bold border md:text-xl ${isDarkMode ? `border-white ${lightMode}` : `border-black ${darkMode}`}`} key={index}>{tool}</p>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                             {item.acf['sub-tabs'] && item.acf['sub-tabs'].filter(subTab => subTab.heading_tab !== "").length > 0 && (
                                 <Tabs className = "mt-4" value={item.acf['sub-tabs'].map(subTab => subTab.heading_tab)}>
                                     <TabsHeader
@@ -145,7 +146,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                                 </Tabs>
                                             ) : (
                                                 <>
-                                                    <h4 className=' pb-2 md:text-xl'>{subTab.information_sub_heading}</h4>
+                                                    <h4 className='py-4 md:text-xl'>{subTab.information_sub_heading}</h4>
                                                     <img src={subTab.project_images.url} alt={subTab.project_images.alt} />
                                                     {subTab.additional_heading_tabs.additional_tabs.length === 0 && (
                                                         <p className='md:text-xl'>{subTab.information_description}</p>
