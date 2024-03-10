@@ -93,7 +93,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     </>
                                 ))}
                             </div>
-                            <h3 className='md:text-2xl'>{item.acf.overview_heading}</h3>
+                            <h3 className='md:text-xl'>{item.acf.overview_heading}</h3>
                             <p className='md:text-xl'>{item.acf.overview}</p>
                             
                             {/* loop and display tools used */}

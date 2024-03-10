@@ -43,7 +43,7 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
             {restData && restData.map((item, index) => (
                 <Timeline>
                     <TimelineItem>
-                    {index !== restData.length - 1 && <TimelineConnector />} {/* Render TimelineConnector for all except the last item */}
+                    {index !== restData.length - 1 && <TimelineConnector />}
                         <TimelineHeader className="h-3">
                             <TimelineIcon className={isDarkMode ? lightMode : darkMode} />
                             <Typography variant="h2" className="leading-none text-base uppercase">
@@ -55,7 +55,7 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
                                 {item.acf.date}
                             </Typography>
                             <img className = "rounded-lg" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
-                            <Button className = {`mt-4 ${isDarkMode ? lightMode : darkMode}`} onClick={() => handleOpen(item.id)}>View Details</Button>
+                            <Button className = {`mt-4 transition-all hover:animate-pulse ${isDarkMode ? lightMode : darkMode}`} onClick={() => handleOpen(item.id)}>View Details</Button>
                             <Collapse open={open === item.id}>
                             <Card key={item.id} className="my-4 mx-auto">
                                 <CardBody className={`space-y-2 ${isDarkMode ? lightMode : darkMode} rounded-xl`}>
