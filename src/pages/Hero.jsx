@@ -34,13 +34,13 @@ function Hero({restBase}){
             id = "desktop-hero-mobile-top-section"
             className='h-dvh bg-[#18181b]'>
                 <header>
-                    <section id = "intro-hero" className='grid grid-rows-12 justify-center items-center text-white'>
+                    <section id = "intro-hero" className='flex flex-wrap flex-col justify-center items-center space-y-4 text-white h-dvh'>
                         {restData.acf &&(
                             <>
-                                <m.h1 animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:0.6, duration: 0.5}} className='text-5xl row-start-4'>{restData.acf.name}</m.h1>
-                                <m.h2 animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:0.8, duration: 0.5}} className='uppercase pt-4 row-start-5'>{restData.acf.job_title}</m.h2>
-                                <m.p animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:1, duration: 0.5}} className='pt-4 pb-10 italic row-start-6'>{restData.acf.tagline}</m.p>
-                                <m.button animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:1.2, duration: 0.5}} className='row-start-8 text-3xl uppercase bg-white text-black w-28 p-2 rounded-lg font-bold animate-pulse'>
+                                <m.h1 animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:0.6, duration: 0.5}} className='text-3xl sm:text-5xl lg:text-7xl'>{restData.acf.name}</m.h1>
+                                <m.h2 animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:0.8, duration: 0.5}} className='text-xl uppercase pt-4 sm:text-2xl lg:text-4xl'>{restData.acf.job_title}</m.h2>
+                                <m.p animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:1, duration: 0.5}} className='pt-4 pb-10 italic lg:text-3xl'>{restData.acf.tagline}</m.p>
+                                <m.button animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:1.2, duration: 0.5}} className='text-xl uppercase bg-white text-black w-28 p-2 rounded-lg font-bold animate-pulse lg:text-2xl'>
                                     <Link to ={"/home"}>
                                         Start
                                     </Link>

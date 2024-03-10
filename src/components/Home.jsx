@@ -22,6 +22,7 @@ function Home({restBase}){
     const [restDataCPT, setDataCPT] = useState([])
     const [isLoaded, setLoadStatus] = useState(false)
     const [content, setContent] = useState("");
+    const [activeTab, setActiveTab] = useState(''); 
     const lightMode = "text-[#18181b] bg-white"
     const darkMode = "text-white bg-[#18181b]"
     const lightModeSvg = "black"
@@ -60,6 +61,12 @@ function Home({restBase}){
     }, [restPath, restPathCPT])
 
     useEffect(() => {
+        if (isLoaded && restDataCPT['featured-projects'] && restDataCPT['featured-projects'].name) {
+            setActiveTab(restDataCPT['featured-projects'].name);
+        }
+    }, [restDataCPT]);
+
+    useEffect(() => {
         AOS.init({
             startEvent: 'DOMContentLoaded',
             duration: 700,
@@ -70,9 +77,6 @@ function Home({restBase}){
       useEffect(() => {
         AOS.refresh();
       }, [isDarkMode])
-
-      const [activeTab, setActiveTab] = useState(`${ isLoaded ? restDataCPT['featured-projects'].name : ''}`);
-      
 
     return(
         <>
@@ -107,27 +111,27 @@ function Home({restBase}){
                                         <nav className='text-xl'>
                                             <ul className='space-y-4'>
                                                 <li>
-                                                    <a onClick = {() => setActiveTab(`${restDataCPT['featured-projects'].name}`)} className={`group flex items-center w-fit text-gray-500 ${activeTab === restDataCPT['featured-projects'].name ? 'active' : ''}`} href="#featured-projects">
-                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['featured-projects'].name ? 'bg-black' : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
-                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'}`}>{restDataCPT['featured-projects'].name}</p>
+                                                    <a onClick = {() => setActiveTab(`${restDataCPT['featured-projects'].name}`)} className={`group flex items-center w-fit text-gray-500`} href="#featured-projects">
+                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['featured-projects'].name ? `${isDarkMode ? 'bg-white' : 'bg-black'}` : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
+                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'} ${activeTab === restDataCPT['featured-projects'].name ? `${isDarkMode ? 'text-white' : 'text-black'}` : ''}`}>{restDataCPT['featured-projects'].name}</p>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a onClick = {() => setActiveTab(restDataCPT['legacy-projects'].name)} className={`group flex items-center w-fit text-gray-500 ${activeTab === restDataCPT['legacy-projects'].name ? 'active' : ''}`} href="#legacy">
-                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['legacy-projects'].name ? 'bg-black' : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
-                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'}`}>{restDataCPT['legacy-projects'].name}</p>
+                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['legacy-projects'].name ? `${isDarkMode ? 'bg-white' : 'bg-black'}` : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
+                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'} ${activeTab === restDataCPT['legacy-projects'].name ? `${isDarkMode ? 'text-white' : 'text-black'}` : ''}`}>{restDataCPT['legacy-projects'].name}</p>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a onClick = {() => setActiveTab(restDataCPT['stack'].name)} className={`group flex items-center w-fit text-gray-500 ${activeTab === restDataCPT['stack'].name ? 'active' : ''}`} href="#stack">
-                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['stack'].name ? 'bg-black' : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
-                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'}`}>{restDataCPT['stack'].name}</p>
+                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['stack'].name ? `${isDarkMode ? 'bg-white' : 'bg-black'}` : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
+                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'} ${activeTab === restDataCPT['stack'].name ? `${isDarkMode ? 'text-white' : 'text-black'}` : ''}`}>{restDataCPT['stack'].name}</p>
                                                     </a>
                                                 </li>
                                                 <li>
                                                     <a onClick = {() => setActiveTab(restDataCPT['hobbies'].name)} className={`group flex items-center w-fit text-gray-500 ${activeTab === restDataCPT['hobbies'].name ? 'active' : ''}`} href="#hobbies">
-                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['hobbies'].name ? 'bg-black' : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
-                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'}`}>{restDataCPT['hobbies'].name}</p>
+                                                        <div className={`h-0.5 w-12 group-hover:w-24 transition-all mr-2 ${activeTab === restDataCPT['hobbies'].name ? `${isDarkMode ? 'bg-white' : 'bg-black'}` : 'bg-gray-500'} ${ isDarkMode ? 'group-hover:bg-white' : 'group-hover:bg-black'}`}></div>
+                                                        <p className={`${isDarkMode ? 'group-hover:text-white' : 'group-hover:text-black'} ${activeTab === restDataCPT['hobbies'].name ? `${isDarkMode ? 'text-white' : 'text-black'}` : ''}`}>{restDataCPT['hobbies'].name}</p>
                                                     </a>
                                                 </li>
                                             </ul>
