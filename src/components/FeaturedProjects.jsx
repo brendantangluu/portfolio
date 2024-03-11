@@ -94,7 +94,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     {/* <img className = "ml-24 w-28 opacity-0 hover:opacity-100 hover:transition-all" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} /> */}
                             </AccordionHeader>
                         <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
-                            <img className = "mb-4 mx-auto desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
+                            <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
                             <div className='px-2'>
                                 {/* Social Links */}
                                 <div className="flex items-center space-x-2 py-4">
