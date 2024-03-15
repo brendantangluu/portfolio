@@ -141,7 +141,7 @@ function Home({restBase}){
                                     </section>
                                     <section id = "about-me">
                                         <h2 className='pb-5'>{restData.acf.about_me_heading}</h2>
-                                        <div className="md:w-[670px] lg:w-96 xl:text-xl" dangerouslySetInnerHTML={{ __html: content }} />
+                                        <div className="md:w-[670px] lg:w-96 xl:text-base" dangerouslySetInnerHTML={{ __html: content }} />
                                     </section>
                                     <section id = "socials" className='flex pt-6 pb-12 lg:pt-10'>
                                         <a className = "pr-2" href={restData.acf.socials[0].github}>

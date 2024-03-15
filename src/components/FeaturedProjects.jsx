@@ -10,28 +10,6 @@ import {
     Tab,
     TabPanel,
 } from "@material-tailwind/react";
-import {
-    SiTailwindcss,
-    SiHtml5,
-    SiReact,
-    SiWordpress,
-    SiGithub,
-    SiJavascript,
-    SiCss3,
-    SiSass,
-    SiPhp,
-    SiAdobexd,
-    SiFigma,
-    SiAdobeillustrator,
-    SiAdobephotoshop,
-    SiTypescript,
-    SiVuetify,
-    SiNodedotjs,
-    SiPython,
-    SiBootstrap
-} from "react-icons/si";
-import { svgComponents } from './Stack';
-
 
 function Icon({ id, open }) {
     return (
@@ -129,10 +107,10 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                             {item.acf['sub-tabs'] && item.acf['sub-tabs'].filter(subTab => subTab.heading_tab !== "").length > 0 && (
                                 <Tabs className = "mt-4" value={item.acf['sub-tabs'].map(subTab => subTab.heading_tab)}>
                                     <TabsHeader
-                                        className={`rounded-none border-b border-blue-gray-50 bg-transparent p-0`}
+                                        className={`rounded-none bg-transparent p-0`}
                                         indicatorProps={{
                                         className:
-                                            "bg-transparent border-b-2 border-gray-900 shadow-none rounded-none",
+                                            `bg-transparent border-b-2 ${isDarkMode ? 'border-white' : 'border-black'} shadow-none rounded-none`,
                                         }}
                                     >
                                         {item.acf['sub-tabs'].map((subTab) => (
@@ -154,16 +132,12 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                             {subTab.additional_heading_tabs && subTab.additional_heading_tabs.additional_tabs.length != 0 ? (
                                                 <Tabs>
                                                     <TabsHeader>
-                                                    {Object.keys(subTab.additional_heading_tabs).map((key, index) => (
-                                                        <Tab key={index} value={subTab.additional_heading_tabs[key].additional_tabs}>
-                                                            {subTab.additional_heading_tabs[key].additional_tabs}
-                                                        </Tab>
-                                                    ))}
-
+                                                        {Object.keys(subTab.additional_heading_tabs).map((key, index) => (
+                                                            <Tab key={index} value={subTab.additional_heading_tabs[key].additional_tabs}>
+                                                                {subTab.additional_heading_tabs[key].additional_tabs}
+                                                            </Tab>
+                                                        ))}
                                                     </TabsHeader>
-                                                    <TabsBody>
-                                                        {/* Render the body of additional tabs here */}
-                                                    </TabsBody>
                                                 </Tabs>
                                             ) : (
                                                 <>
