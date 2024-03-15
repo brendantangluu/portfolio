@@ -8,8 +8,7 @@ import { GrProjects} from "react-icons/gr";
 import { HiHome } from "react-icons/hi";
 import { FaFolder } from "react-icons/fa";
 import { IoTimer } from "react-icons/io5";
-import AOS from 'aos';
-import 'aos/dist/aos.css';
+import { MdMusicNote } from "react-icons/md";
 import Hobbies from './Hobbies'
 import {motion as m} from "framer-motion";
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -67,18 +66,6 @@ function Home({restBase}){
         }
     }, [restDataCPT]);
 
-    useEffect(() => {
-        AOS.init({
-            startEvent: 'DOMContentLoaded',
-            duration: 700,
-            once: false,
-        });
-      }, [])
-
-      useEffect(() => {
-        AOS.refresh();
-      }, [isDarkMode])
-
     return(
         <>
             { isLoaded ?
@@ -96,7 +83,6 @@ function Home({restBase}){
                             initial={{opacity: 0}} 
                             animate={{opacity: 1}} 
                             transition={{delay: 0.8, duration: 0.75, ease: "easeOut"}} 
-                            data-aos="fade-in" 
                             id="sidebar-section" 
                             className="lg:flex-1 lg:sticky lg:top-0 lg:h-screen desktop:mx-auto desktop:w-[700px]">
                                 <header>
@@ -160,7 +146,6 @@ function Home({restBase}){
                             initial={{opacity: 0}} 
                             animate={{opacity: 1}} 
                             transition={{delay: 1.0, duration: 0.75, ease: "easeOut"}} 
-                            data-aos="fade-up" 
                             id="content" 
                             className="lg:flex-1 lg:overflow-y-auto lg:mt-8 desktop:mx-auto desktop:max-w-[700px]">
                                 <section id = "featured-projects">
@@ -181,26 +166,31 @@ function Home({restBase}){
                                 </section>
                             </m.section>
                         </div>
-                        <nav data-aos="fade-up" data-aos-delay="10" data-aos-duration="500" data-aos-easing="ease-in-out" className={`fixed left-8 bottom-5 z-50 w-[250px] rounded-xl lg:hidden ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
+                        <nav className={`fixed left-2.5 bottom-5 z-50 w-[300px] rounded-xl lg:hidden ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
                             <ul className='flex space-x-10 justify-center py-3'>
                                 <li>
-                                    <a href="#desktop-hero-mobile-top-section">
-                                        <HiHome className = {`${!isDarkMode ? "hover:#A3A3A3" : "hover:text-[#18181b]"}`} size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#intro-hero">
+                                        <HiHome size = {20} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#featured-projects">
-                                        <GrProjects size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                        <GrProjects size = {20} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#legacy">
-                                        <FaFolder size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                        <FaFolder size = {20} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#stack">
-                                        <IoTimer size = {24} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                        <IoTimer size = {20} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#hobbies">
+                                        <MdMusicNote size = {18} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
                                     </a>
                                 </li>
                             </ul>
