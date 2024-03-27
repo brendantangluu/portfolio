@@ -4,11 +4,7 @@ import {
     Accordion,
     AccordionHeader,
     AccordionBody,
-    Tabs,
-    TabsHeader,
-    TabsBody,
-    Tab,
-    TabPanel,
+    
 } from "@material-tailwind/react";
 
 function Icon({ id, open }) {
@@ -73,7 +69,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                             </AccordionHeader>
                         <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
                             <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
-                            <div className='px-2'>
+                            <div className='p-2'>
                                 {/* Social Links */}
                                 <div className="flex items-center space-x-2 py-4">
                                     {item.acf.social_links && item.acf.social_links.map((link) => (
@@ -92,7 +88,7 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                         </>
                                     ))}
                                 </div>
-                                <h3 className='md:text-xl'>{item.acf.overview_heading}</h3>
+                                <h3 className='md:text-xl pt-4 pb-2'>{item.acf.overview_heading}</h3>
                                 <p className='md:text-xl'>{item.acf.overview}</p>
                                 
                                 {/* loop and display tools used */}
@@ -104,55 +100,24 @@ function FeaturedProjects({restBase, isDarkMode, lightMode, darkMode, lightModeS
                                     </div>
                                 )}
                             </div>
-                            {item.acf['sub-tabs'] && item.acf['sub-tabs'].filter(subTab => subTab.heading_tab !== "").length > 0 && (
-                                <Tabs className = "mt-4" value={item.acf['sub-tabs'].map(subTab => subTab.heading_tab)}>
-                                    <TabsHeader
-                                        className={`rounded-none bg-transparent p-0`}
-                                        indicatorProps={{
-                                        className:
-                                            `bg-transparent border-b-2 ${isDarkMode ? 'border-white' : 'border-black'} shadow-none rounded-none`,
-                                        }}
-                                    >
-                                        {item.acf['sub-tabs'].map((subTab) => (
-                                            subTab.heading_tab !== "" && (
-                                                <Tab className = {`text-sm md:text-xl ${isDarkMode ? "text-white" : "text-black"}`} key={subTab.heading_tab.id} value={subTab.heading_tab}>
-                                                    {subTab.heading_tab}
-                                                </Tab>
-                                            )
-                                        ))}
-                                    </TabsHeader>
-                                    <TabsBody
-                                        animate={{
-                                            initial: { x: 250 },
-                                            mount: { x: 0 },
-                                            unmount: { x: 250 },
-                                        }}>
-                                        {item.acf['sub-tabs'].map((subTab) => (
-                                            <TabPanel className = {isDarkMode ? darkMode : lightMode} key={subTab.information_description} value={subTab.heading_tab}>
-                                            {subTab.additional_heading_tabs && subTab.additional_heading_tabs.additional_tabs.length != 0 ? (
-                                                <Tabs>
-                                                    <TabsHeader>
-                                                        {Object.keys(subTab.additional_heading_tabs).map((key, index) => (
-                                                            <Tab key={index} value={subTab.additional_heading_tabs[key].additional_tabs}>
-                                                                {subTab.additional_heading_tabs[key].additional_tabs}
-                                                            </Tab>
-                                                        ))}
-                                                    </TabsHeader>
-                                                </Tabs>
-                                            ) : (
-                                                <>
-                                                    <h4 className='py-4 md:text-xl'>{subTab.information_sub_heading}</h4>
-                                                    <img src={subTab.project_images.url} alt={subTab.project_images.alt} />
-                                                    {subTab.additional_heading_tabs.additional_tabs.length === 0 && (
-                                                        <p className='md:text-xl'>{subTab.information_description}</p>
-                                                    )}
-                                                </>
-                                            )}
-                                            </TabPanel>
-                                        ))}
-                                    </TabsBody>
-                                </Tabs>
-                            )}
+                            <section className='p-2 space-y-2'>
+                                <h3 className='md:text-xl'>{item.acf.heading_tab}</h3>
+                                <article>
+                                    <p className='md:text-xl'>{item.acf.information_description}</p>
+                                </article>
+                                <h3 className='md:text-xl pt-4'>{item.acf.notable_heading}</h3>
+                                {item.acf.features && item.acf.features.map((article) => (
+                                    <article key={article.id}>
+                                        <h4 className='italic pt-4 md:text-xl'>{article.notable_feature_subheading}</h4>
+                                        {article.project_videos && 
+                                            <div className='rounded-lg'>
+                                                <video className='py-4' src={article.project_videos.url} controls muted loop></video>
+                                            </div>
+                                        }
+                                        <p className='md:text-xl'>{article.notable_information}</p>
+                                    </article>
+                                ))}
+                            </section>
                         </AccordionBody>
                     </Accordion>
                 ))}

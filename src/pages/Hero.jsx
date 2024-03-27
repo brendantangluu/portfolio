@@ -22,7 +22,6 @@ function Hero({restBase}){
         }
         fetchData()
     }, [restPath])
-    console.log(restData)
     
     return(
         <>
