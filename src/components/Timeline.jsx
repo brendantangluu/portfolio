@@ -41,7 +41,7 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
     return(
         <>
             {restData && restData.map((item, index) => (
-                <Timeline>
+                <Timeline key={index}>
                     <TimelineItem>
                     {index !== restData.length - 1 && <TimelineConnector />}
                         <TimelineHeader className="h-3">

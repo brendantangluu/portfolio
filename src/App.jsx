@@ -3,7 +3,6 @@ import Home from './components/Home'
 import { ThemeProvider } from './DarkModeContext.jsx/ThemeContext'
 import Hero from './pages/Hero';
 import { AnimatePresence } from 'framer-motion';
-import Spotify from './components/Spotify';
 
 function App({hero, home}) {
   const restBase = 'https://btech.codes/portfolio/wp-json/wp/v2/'
@@ -11,11 +10,10 @@ function App({hero, home}) {
     <AnimatePresence>
       <ThemeProvider>
         <Router>
-          <main className='font-inter' id="main">
+          <main id="main">
             <Routes>
                 <Route key = {hero} path='/' element={<Hero restBase = {restBase}/>}/>
                 <Route key = {home} path='/home' element={<Home restBase={restBase} />} />
-                <Route path ='/spotify' element={<Spotify/>}/>
             </Routes>
           </main>
         </Router>

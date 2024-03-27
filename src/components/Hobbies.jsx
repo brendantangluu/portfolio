@@ -20,8 +20,7 @@ function Hobbies({ restBase, isDarkMode, lightMode, darkMode }) {
         };
         fetchData();
     }, [restPath]);
-
-    console.log(restData);
+    
     return (
         <>
             <div className={`mb-4 p-2 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>

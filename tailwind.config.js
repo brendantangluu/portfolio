@@ -10,7 +10,8 @@ module.exports = withMT({
   theme: {
     extend: {
       fontFamily: {
-        inter: ["Inter Tight", "sans-serif"],
+        sans: ["Cabin", "sans-serif"],
+        headings:["Raleway", "sans-serif"]
       },
       screens:{
         'desktop': '1920px',

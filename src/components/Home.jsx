@@ -7,12 +7,12 @@ import Stack from './Stack'
 import { GrProjects} from "react-icons/gr";
 import { HiHome } from "react-icons/hi";
 import { FaFolder } from "react-icons/fa";
-import { IoTimer } from "react-icons/io5";
+import { FaCubesStacked } from "react-icons/fa6";
 import { MdMusicNote } from "react-icons/md";
 import Hobbies from './Hobbies'
 import {motion as m} from "framer-motion";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import axios from 'axios';
+import Playlist from './Playlist'
 
 function Home({restBase}){
 
@@ -23,10 +23,10 @@ function Home({restBase}){
     const [isLoaded, setLoadStatus] = useState(false)
     const [content, setContent] = useState("")
     const [activeTab, setActiveTab] = useState('') 
-    const lightMode = "text-[#18181b] bg-white"
-    const darkMode = "text-white bg-[#18181b]"
-    const lightModeSvg = "black"
-    const darkModeSvg = "white"
+    const lightMode = "text-[#2D2D2B] bg-[#F0E4D8]"
+    const darkMode = "text-[#F0E4D8] bg-[#2D2D2B]"
+    const lightModeSvg = "#2D2D2B"
+    const darkModeSvg = "#F0E4D8"
     const { isDarkMode, toggleTheme } = useContext(ThemeContext)
     const themeClass = isDarkMode ? darkMode : lightMode
     const svgMedia = useMediaQuery('(min-width: 1140px)');
@@ -35,6 +35,31 @@ function Home({restBase}){
     const github = <svg className={`transition-all ${isDarkMode ? 'hover:fill-gray-400' : 'hover:fill-gray-700'}`} xmlns="http://www.w3.org/2000/svg" width={svgMedia ? "50" : "38"} height={svgMedia ? "50" : "38"} viewBox="0 0 24 24" fill={!isDarkMode ? lightModeSvg : darkModeSvg}><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm2.218 18.616c-.354.069-.468-.149-.468-.336v-1.921c0-.653-.229-1.079-.481-1.296 1.56-.173 3.198-.765 3.198-3.454 0-.765-.273-1.389-.721-1.879.072-.177.312-.889-.069-1.853 0 0-.587-.188-1.923.717-.561-.154-1.159-.231-1.754-.234-.595.003-1.193.08-1.753.235-1.337-.905-1.925-.717-1.925-.717-.379.964-.14 1.676-.067 1.852-.448.49-.722 1.114-.722 1.879 0 2.682 1.634 3.282 3.189 3.459-.2.175-.381.483-.444.936-.4.179-1.413.488-2.037-.582 0 0-.37-.672-1.073-.722 0 0-.683-.009-.048.426 0 0 .46.215.777 1.024 0 0 .405 1.25 2.353.826v1.303c0 .185-.113.402-.462.337-2.782-.925-4.788-3.549-4.788-6.641 0-3.867 3.135-7 7-7s7 3.133 7 7c0 3.091-2.003 5.715-4.782 6.641z"/></svg>
     const linkedin = <svg className={`transition-all ${isDarkMode ? 'hover:fill-gray-400' : 'hover:fill-gray-700'}`} xmlns="http://www.w3.org/2000/svg" width={svgMedia ? "50" : "38"} height={svgMedia ? "50" : "38"} viewBox="0 0 24 24" fill={!isDarkMode ? lightModeSvg : darkModeSvg}><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/></svg>
     const email = <svg className={`transition-all ${isDarkMode ? 'hover:fill-gray-400' : 'hover:fill-gray-700'}`} xmlns="http://www.w3.org/2000/svg" width={svgMedia ? "50" : "38"} height={svgMedia ? "50" : "38"} viewBox="0 0 24 24" fill={!isDarkMode ? lightModeSvg : darkModeSvg}><path d="M12 .02c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.99 6.98l-6.99 5.666-6.991-5.666h13.981zm.01 10h-14v-8.505l7 5.673 7-5.672v8.504z"/></svg>
+
+    const [showCopiedText, setShowCopiedText] = useState(false);
+
+    const handleCopyToClipboard = async (email) => {
+        try {
+            await navigator.clipboard.writeText(email);
+            setShowCopiedText(true);
+        } catch (error) {
+            console.error('Failed to copy:', error);
+        }
+    };
+
+    const emailCopied = () => {
+        handleCopyToClipboard(restData.acf.socials[0].email);
+    }
+
+    useEffect(() => {
+        if (showCopiedText) {
+            const timer = setTimeout(() => {
+                setShowCopiedText(false);
+            }, 3000);
+            return () => clearTimeout(timer);
+        }
+    }, [showCopiedText]);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -70,10 +95,10 @@ function Home({restBase}){
                     animate={{opacity: 1}}
                     transition={{delay: 0.5, duration: 0.75, ease: "easeOut"}}
                     className = {`transition-all duration-600 relative p-6 pt-10 lg:py-0 lg:px-8 ${!isDarkMode ? lightMode : darkMode}`}>
-                        <button className = {`lg:hidden transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
+                        <button aria-label='Theme toggle, sun icon if is is dark mode, moon icon if it is light mode.' type="button" className = {`lg:hidden transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
                             {isDarkMode ? sun : moon}
                         </button>    
-                        <div className='lg:grid lg:grid-cols-2 lg:gap-10'>
+                        <div className='lg:grid lg:grid-cols-2 lg:gap-20'>
                             <m.section
                             initial={{opacity: 0}} 
                             animate={{opacity: 1}} 
@@ -81,19 +106,16 @@ function Home({restBase}){
                             id="sidebar-section" 
                             className="lg:flex-1 lg:sticky lg:top-0 lg:h-screen desktop:mx-auto desktop:w-[700px]">
                                 <header>
-                                    <button className = {`hidden lg:block transition-all duration-600 p-2 mx-4 absolute top-10 right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
+                                    <button aria-label='Theme toggle, sun icon if is is dark mode, moon icon if it is light mode.'type="button" className = {`hidden lg:block transition-all duration-600 p-2 ml-4 absolute top-10 right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
                                         {isDarkMode ? sun : moon}
                                     </button>
                                     <section id = "intro-hero" className='pt-14'>
-                                        <h1 className='text-5xl lg:text-4xl xl:text-5xl'>{restData.acf.name}</h1>
-                                        <h2 className='uppercase pt-4 lg:text-xl xl:text-2xl'>{restData.acf.job_title}</h2>
+                                        <h1 className='text-4xl lg:text-4xl xl:text-5xl'>{restData.acf.name}</h1>
+                                        <h2 className='uppercase pt-4 text-xl xl:text-2xl'>{restData.acf.job_title}</h2>
                                         <p className='pt-4 pb-10 italic xl:text-xl'>{restData.acf.tagline}</p>
                                     </section>
-                                    <section id="spotify">
-
-                                    </section>
-                                    <section id = "desktop-nav" className='pb-10 hidden lg:block'>
-                                        <nav className='text-xl'>
+                                    <section id = "desktop-nav" className='pb-10 hidden uppercase lg:block'>
+                                        <nav className='text-base font-bold'>
                                             <ul className='space-y-4'>
                                                 <li>
                                                     <a onClick = {() => setActiveTab(`${restDataCPT['featured-projects'].name}`)} className={`group flex items-center w-fit text-gray-500`} href="#featured-projects">
@@ -123,15 +145,36 @@ function Home({restBase}){
                                         </nav>
 
                                     </section>
+                                    <section id = "about-me" className='pb-14 lg:max-w-[415px]'>
+                                        <h2 className='pb-4 text-2xl'>{restData.acf.about_me_heading}</h2>
+                                        <div className='xl:text-base' dangerouslySetInnerHTML={{ __html: content }} />
+                                    </section>
                                     <section id = "socials" className='flex pt-6 pb-12 lg:pt-10'>
-                                        <a className = "pr-2" href={restData.acf.socials[0].github}>
+                                        <a className="pr-2" href={restData.acf.socials[0].github} aria-label="GitHub icon leading to github profile.">
                                             {github}
                                         </a>
-                                        <a className = "pr-2" href={restData.acf.socials[0].linkedin}>
+                                        <a className="pr-2" href={restData.acf.socials[0].linkedin} aria-label="LinkedIn icon leading to linkedin profile.">
                                             {linkedin}
                                         </a>
-                                        <a className = "pr-2" href={restData.acf.socials[0].email}>
-                                            {email}
+                                        <a
+                                            className="pr-2"
+                                            href={restData.acf.socials[0].email}
+                                            aria-label="Email icon which copies the email onto clipboard."
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                emailCopied();
+                                            }}
+                                        >
+                                            <span className="inline-flex items-center">
+                                                {email} {/* Render the SVG */}
+                                                <span
+                                                    className={`ml-1 transition-all duration-300 ${
+                                                       showCopiedText ? 'opacity-100' : 'opacity-0'
+                                                    }`}
+                                                >
+                                                    {showCopiedText ? 'Copied!' : ''}
+                                                </span>
+                                            </span>
                                         </a>
                                     </section>
                                 </header>
@@ -141,14 +184,10 @@ function Home({restBase}){
                             animate={{opacity: 1}} 
                             transition={{delay: 1.0, duration: 0.75, ease: "easeOut"}} 
                             id="content" 
-                            className="lg:flex-1 lg:overflow-y-auto lg:mt-8 desktop:mx-auto desktop:max-w-[700px]">
+                            className="lg:flex-1 lg:overflow-y-auto lg:mt-8 desktop:mx-auto desktop:max-w-[1050px]">
                                 <section id = "featured-projects" className='py-6'>
                                     <h2 className='pb-4'>{restDataCPT['featured-projects'].name}</h2>
                                     <FeaturedProjects restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode} lightModeSvg = {lightModeSvg} darkModeSvg = {darkModeSvg}/>
-                                </section>
-                                <section id = "about-me" className='py-6'>
-                                    <h2 className='pb-4'>{restData.acf.about_me_heading}</h2>
-                                    <div className='xl:text-base' dangerouslySetInnerHTML={{ __html: content }} />
                                 </section>
                                 <section id = "legacy" className='py-6'>
                                     <h2 className='pb-6'>{restDataCPT['legacy-projects'].name}</h2>
@@ -158,37 +197,41 @@ function Home({restBase}){
                                     <h2 className='pb-4'>{restDataCPT['stack'].name}</h2>
                                     <Stack restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode}/>
                                 </section>
+                                <section id="spotify">
+                                    <h2 className='pb-4'>Spotify Daylist</h2>
+                                    <Playlist isDarkMode = {isDarkMode}/>
+                                </section>
                                 <section id = "hobbies" className='pt-6 mb-16'>
                                     <h2 className='pb-4'>{restDataCPT['hobbies'].name}</h2>
                                     <Hobbies restBase = {restBase} isDarkMode = {isDarkMode} lightMode = {lightMode} darkMode = {darkMode}/>
                                 </section>
                             </m.section>
                         </div>
-                        <nav className={`fixed left-2.5 bottom-5 z-50 w-[300px] rounded-xl lg:hidden ${isDarkMode ? "bg-[#A3A3A3]" : "bg-[#18181b]"}`}>
-                            <ul className='flex space-x-10 justify-center py-3'>
+                        <nav className={`fixed left-0 right-0 bottom-5 z-50 w-[350px] md:w-[450px] mx-auto rounded-xl lg:hidden ${isDarkMode ? lightMode : darkMode}`}>
+                            <ul className='flex justify-center space-x-10 md:space-x-16 py-3'>
                                 <li>
-                                    <a href="#intro-hero">
-                                        <HiHome size = {22} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#intro-hero" aria-label="Home icon directing to intro section.">
+                                        <HiHome size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#featured-projects">
-                                        <GrProjects size = {22} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#featured-projects" aria-label="Project icon directing to featured projects section.">
+                                        <GrProjects size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#legacy">
-                                        <FaFolder size = {22} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#legacy" aria-label="Folder icon leading to legacy projects section.">
+                                        <FaFolder size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#stack">
-                                        <IoTimer size = {22} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#stack" aria-label="Stack of cubes icon leading to stack section.">
+                                        <FaCubesStacked size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#hobbies">
-                                        <MdMusicNote size = {22} color={`${!isDarkMode ? "#A3A3A3" : "#18181b"}`}/>
+                                    <a href="#hobbies" aria-label="Music icon leading to hobbies section.">
+                                        <MdMusicNote size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                             </ul>

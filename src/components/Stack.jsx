@@ -17,7 +17,8 @@ import {
     SiVuetify,
     SiNodedotjs,
     SiPython,
-    SiBootstrap
+    SiBootstrap,
+    SiNextdotjs
 } from "react-icons/si";
 
 export const svgComponents = {
@@ -38,7 +39,8 @@ export const svgComponents = {
     vue: <SiVuetify />,
     node_js: <SiNodedotjs />,
     python: <SiPython />,
-    bootstrap: <SiBootstrap />
+    bootstrap: <SiBootstrap />,
+    next_js: <SiNextdotjs />
 };
 
 function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
@@ -63,18 +65,18 @@ function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
     }, [restPath]);
 
     return (
-        <>
-            {restData.map((tech) => (
-                <div className={`mb-4 p-4 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
+        <div className='md:grid grid-cols-2 grid-rows-2 gap-4'>
+            {restData.map((tech, index) => (
+                <div key={index} className={`${tech.title.rendered === "Web Development" ? "col-span-2" : ''} mb-4 p-2 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
                     <section>
-                        <h2>{tech.title.rendered}</h2>
+                        <h2 className='text-center text-2xl mt-2 lg:text-xl xl:text:2xl'>{tech.title.rendered}</h2>
                         {tech.acf.stack && (
-                            <div className='flex flex-wrap justify-evenly'>
-                                {tech.acf.stack.map((tool) => {
+                            <div className='flex flex-wrap justify-center'>
+                                {tech.acf.stack.map((tool, index) => {
                                     // Convert tool name to lowercase and remove whitespace and special characters
                                     const toolName = tool.toLowerCase().replace(/\s/g, '').replace(/\./g, '_');
                                     return (
-                                        <div key={tool.id} className={`flex w-[200px] h-12 items-center justify-center space-x-2 mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
+                                        <div key={index} className={`flex w-[170px] h-14 items-center justify-center space-x-2 mr-2 my-4 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
                                             {svgComponents[toolName]}
                                             <p>{tool}</p>
                                         </div>
@@ -85,7 +87,7 @@ function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
                     </section>
                 </div>
             ))}
-        </>
+        </div>
     );
 }
 
