@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react'
+import {useState, useEffect} from 'react'
 import { Timeline,
     TimelineItem,
     TimelineConnector,
@@ -43,9 +43,9 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
             {restData && restData.map((item, index) => (
                 <Timeline key={index}>
                     <TimelineItem>
-                    {index !== restData.length - 1 && <TimelineConnector />}
+                    {index !== restData.length - 1 && <TimelineConnector/>}
                         <TimelineHeader className="h-3">
-                            <TimelineIcon className={isDarkMode ? lightMode : darkMode} />
+                            <TimelineIcon className={isDarkMode ? lightMode : darkMode}/>
                             <Typography variant="h2" className="leading-none text-base uppercase md:text-xl">
                                 {item.title.rendered}
                             </Typography>

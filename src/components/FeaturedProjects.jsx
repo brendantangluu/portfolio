@@ -53,14 +53,10 @@
             }
             fetchData()
         }, [restPath])
-
-
-        
         return(
             <>
             {isLoaded ?
                 <>
-                {/* Carousel made with Material Tailwind https://www.material-tailwind.com/docs/react/carousel */}
                     {restData.map((item) => (
                         <Accordion className = {`rounded-lg border mb-2 p-2 ${isDarkMode ? "border-white" : "border-[#18181b]"}`} key={item.id} open={open === item.id} icon={<Icon id={item.id} open={open} />}>
                                 <AccordionHeader className = {`${isDarkMode ? 'text-white border-white' : 'text-[#18181b] border-b-[#18181b]' } hover:text-gray-500 uppercase font-black`} onClick={() => handleOpen(item.id)}>
@@ -69,27 +65,23 @@
                             <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
                                 <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
                                 <div className='p-2'>
-                                    {/* Social Links */}
                                     <div className="flex items-center space-x-2 py-4">
                                         {item.acf.social_links && item.acf.social_links.map((link, index) => (
-                                            <>
-                                                {/* Include SVG for btech.codes link */}
+                                            <div key={`${link.links}-${index}`}>
                                                 {link.links.includes("github") ? (
-                                                    <a key = {index} href={link.links} aria-label="Github icon leading to Github repo.">
+                                                    <a href={link.links} aria-label="Github icon leading to Github repo.">
                                                         {github}
                                                     </a>
                                                 ) : (
-                                                /* Render the link for non-btech.codes links */
-                                                    <a key = {index} href={link.links} aria-label="Globe icon linking to project website.">
+                                                    <a href={link.links} aria-label="Globe icon linking to project website.">
                                                         {globe}
                                                     </a>
                                                 )}
-                                            </>
+                                            </div>
                                         ))}
                                     </div>
                                     <h3 className='text-base pt-4 pb-2'>{item.acf.overview_heading}</h3>
                                     <p className='text-base'>{item.acf.overview}</p>
-                                    {/* loop and display tools used */}
                                     {item.acf.tools_used && (
                                         <div className='flex'>
                                             {item.acf.tools_used.map((tool, index) => (
