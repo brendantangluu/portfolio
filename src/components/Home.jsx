@@ -12,7 +12,6 @@ import { MdMusicNote } from "react-icons/md";
 import Hobbies from './Hobbies'
 import {motion as m} from "framer-motion";
 import useMediaQuery from '@mui/material/useMediaQuery';
-import Playlist from './Playlist'
 
 function Home({restBase}){
 
@@ -70,8 +69,8 @@ function Home({restBase}){
                 const dataCPT = await responseCPT.json()
                 setData(data)
                 setDataCPT(dataCPT)
-                setLoadStatus(true)
                 setContent(data.acf.about_me_description.replace(/\n/g, '<br />'));
+                setLoadStatus(true)
             }else {
                 setLoadStatus(false)
             }
@@ -85,6 +84,10 @@ function Home({restBase}){
         }
     }, [restDataCPT]);
 
+    const iframe = {
+        borderRadius: '12px'
+    }
+
 
     return(
         <>
@@ -93,8 +96,8 @@ function Home({restBase}){
                     <m.div
                     initial={{opacity: 0}} 
                     animate={{opacity: 1}}
-                    transition={{delay: 0.5, duration: 0.75, ease: "easeOut"}}
-                    className = {`transition-all duration-600 relative p-6 pt-10 lg:py-0 lg:px-8 ${!isDarkMode ? lightMode : darkMode}`}>
+                    transition={{delay: 0.5, duration: 0.75, ease: "easeIn"}}
+                    className = {`relative p-6 pt-10 lg:py-0 lg:px-8 ${!isDarkMode ? lightMode : darkMode}`}>
                         <button aria-label='Theme toggle, sun icon if is is dark mode, moon icon if it is light mode.' type="button" className = {`lg:hidden transition-all duration-600 p-2 mx-4 absolute right-0 z-50 ${themeClass}bg-transparent`} onClick = {toggleTheme}>
                             {isDarkMode ? sun : moon}
                         </button>    
@@ -102,7 +105,7 @@ function Home({restBase}){
                             <m.section
                             initial={{opacity: 0}} 
                             animate={{opacity: 1}} 
-                            transition={{delay: 0.8, duration: 0.75, ease: "easeOut"}} 
+                            transition={{delay: 0.8, duration: 0.75, ease: "easeIn"}} 
                             id="sidebar-section" 
                             className="lg:flex-1 lg:sticky lg:top-0 lg:h-screen desktop:mx-auto desktop:w-[700px]">
                                 <header>
@@ -181,7 +184,7 @@ function Home({restBase}){
                             <m.section
                             initial={{opacity: 0}} 
                             animate={{opacity: 1}} 
-                            transition={{delay: 1.0, duration: 0.75, ease: "easeOut"}} 
+                            transition={{delay: 1, duration: 0.75, ease: "easeIn"}} 
                             id="content" 
                             className="lg:flex-1 lg:overflow-y-auto lg:mt-8 desktop:mx-auto desktop:max-w-[1050px]">
                                 <section id = "featured-projects" className='py-6'>
@@ -198,7 +201,15 @@ function Home({restBase}){
                                 </section>
                                 <section id="spotify">
                                     <h2 className='pb-4'>Spotify Daylist</h2>
-                                    <Playlist isDarkMode = {isDarkMode}/>
+                                    <iframe
+                                        style={iframe}
+                                        src={`https://open.spotify.com/embed/playlist/37i9dQZF1EP6YuccBxUcC1?utm_source=generator&theme=${isDarkMode ? "1" : "0"}`}
+                                        width="100%"
+                                        height="152"
+                                        frameBorder="0"
+                                        title="Brendan's Spotify daylist."
+                                        loading="eager"
+                                    ></iframe>
                                 </section>
                                 <section id = "hobbies" className='pt-6 mb-16'>
                                     <h2 className='pb-4'>{restDataCPT['hobbies'].name}</h2>
@@ -206,31 +217,31 @@ function Home({restBase}){
                                 </section>
                             </m.section>
                         </div>
-                        <nav className={`fixed left-0 right-0 bottom-5 z-50 w-[350px] md:w-[450px] mx-auto rounded-xl lg:hidden ${isDarkMode ? lightMode : darkMode}`}>
+                        <nav className={`fixed left-0 right-0 bottom-5 z-50 w-[300px] md:w-[450px] mx-auto rounded-xl lg:hidden ${isDarkMode ? lightMode : darkMode}`}>
                             <ul className='flex justify-center space-x-10 md:space-x-16 py-3'>
                                 <li>
                                     <a href="#intro-hero" aria-label="Home icon directing to intro section.">
-                                        <HiHome size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
+                                        <HiHome size={20} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#featured-projects" aria-label="Project icon directing to featured projects section.">
-                                        <GrProjects size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
+                                        <GrProjects size={20} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#legacy" aria-label="Folder icon leading to legacy projects section.">
-                                        <FaFolder size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
+                                        <FaFolder size={20} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#stack" aria-label="Stack of cubes icon leading to stack section.">
-                                        <FaCubesStacked size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
+                                        <FaCubesStacked size={20} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#hobbies" aria-label="Music icon leading to hobbies section.">
-                                        <MdMusicNote size={30} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
+                                        <MdMusicNote size={20} color={`${!isDarkMode ? darkModeSvg : lightModeSvg}`}/>
                                     </a>
                                 </li>
                             </ul>

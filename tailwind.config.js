@@ -15,6 +15,7 @@ module.exports = withMT({
       },
       screens:{
         'desktop': '1920px',
+        'macbook': '1244px'
       }
     },
   },

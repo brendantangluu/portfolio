@@ -33,7 +33,7 @@ function Hero({restBase}){
             id = "desktop-hero-mobile-top-section"
             className='h-dvh bg-[#F0E4D8]'>
                 <header>
-                    <section id = "intro-hero" className='flex flex-wrap flex-col justify-center items-center space-y-4 text-[#2D2D2B] h-dvh'>
+                    <section id = "intro-hero" className='flex flex-wrap flex-col justify-center items-center md:space-y-2 lg:space-y-4 text-[#2D2D2B] h-dvh'>
                         {restData.acf &&(
                             <>
                                 <m.h1 animate = {{opacity: 1}} initial={{opacity:0}} transition={{delay:0.6, duration: 0.5}} className='text-3xl sm:text-5xl lg:text-7xl'>{restData.acf.name}</m.h1>

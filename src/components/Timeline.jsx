@@ -10,9 +10,10 @@ import { Timeline,
     Button,
     Card,
     CardBody,} from "@material-tailwind/react";
+import Loading from './Loading';
 
 function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
-    const restPath = restBase + 'legacy?_embed'
+    const restPath = restBase + 'legacy?_embed&acf_format=standard'
     const [restData, setData] = useState([])
     const [isLoaded, setLoadStatus] = useState(false)
     
@@ -35,46 +36,55 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
         }
         fetchData()
     }, [restPath])
-
-    
-
     return(
         <>
-            {restData && restData.map((item, index) => (
-                <Timeline key={index}>
-                    <TimelineItem>
-                    {index !== restData.length - 1 && <TimelineConnector/>}
-                        <TimelineHeader className="h-3">
-                            <TimelineIcon className={isDarkMode ? lightMode : darkMode}/>
-                            <Typography variant="h2" className="leading-none text-base uppercase md:text-xl">
-                                {item.title.rendered}
-                            </Typography>
-                        </TimelineHeader>
-                        <TimelineBody className="pb-8">
-                            <Typography className="italic mb-4 md:text-xl">
-                                {item.acf.date}
-                            </Typography>
-                            <img className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
-                            <Button className = {`mt-4 transition-all hover:bg-gray-500 hover:text-black ${isDarkMode ? lightMode : darkMode}`} onClick={() => handleOpen(item.id)}>View Details</Button>
-                            <Collapse open={open === item.id}>
-                            <Card key={item.id} className="my-4 mx-auto">
-                                <CardBody className={`space-y-2 ${isDarkMode ? lightMode : darkMode} rounded-xl`}>
-                                    <div className='flex flex-wrap justify-center'>
-                                        {item.acf.tools_used.map((tool, index) => (
-                                            <p className = {`text-center mr-2 my-2 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `${darkMode}` : `${lightMode}`}`} key={index}>{tool}</p>
-                                        ))}
-                                    </div>
-                                    <h2 className='text-base'>{item.acf.overview_heading}</h2>
-                                    <p>{item.acf.overview}</p>
-                                    <h2 className='text-base'>{item.acf.project_information_[0].information_heading}</h2>
-                                    <p>{item.acf.project_information_[0].information_description}</p>
-                                </CardBody>
-                                </Card>
-                            </Collapse>
-                        </TimelineBody>
-                    </TimelineItem>
-                </Timeline>
-            ))}
+        {isLoaded ?
+            <>
+                {restData && restData.map((item, index) => (
+                    <Timeline key={index}>
+                        <TimelineItem>
+                        {index !== restData.length - 1 && <TimelineConnector/>}
+                            <TimelineHeader className="h-3">
+                                <TimelineIcon className={isDarkMode ? lightMode : darkMode}/>
+                                <Typography variant="h2" className="leading-none text-base uppercase md:text-xl">
+                                    {item.title.rendered}
+                                </Typography>
+                            </TimelineHeader>
+                            <TimelineBody className="pb-8">
+                                <Typography className="italic mb-4 md:text-xl">
+                                    {item.acf.date}
+                                </Typography>
+                                {item.acf.landing_page_alternate ?
+                                    isDarkMode ? <img className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+                                    : <img className = "rounded-lg desktop:w-[700px]" src={item.acf.landing_page_alternate.sizes.medium_large} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+
+                                    :
+                                    <img className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+                                } 
+                                <Button className = {`mt-4 transition-all hover:bg-gray-500 hover:text-black ${isDarkMode ? lightMode : darkMode}`} onClick={() => handleOpen(item.id)}>View Details</Button>
+                                <Collapse open={open === item.id}>
+                                <Card key={item.id} className="my-4 mx-auto">
+                                    <CardBody className={`space-y-2 ${isDarkMode ? lightMode : darkMode} rounded-xl`}>
+                                        <div className='flex flex-wrap justify-center'>
+                                            {item.acf.tools_used.map((tool, index) => (
+                                                <p className = {`text-center mr-2 my-2 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `${darkMode}` : `${lightMode}`}`} key={index}>{tool}</p>
+                                            ))}
+                                        </div>
+                                        <h2 className='text-base'>{item.acf.overview_heading}</h2>
+                                        <p>{item.acf.overview}</p>
+                                        <h2 className='text-base'>{item.acf.project_information_[0].information_heading}</h2>
+                                        <p>{item.acf.project_information_[0].information_description}</p>
+                                    </CardBody>
+                                    </Card>
+                                </Collapse>
+                            </TimelineBody>
+                        </TimelineItem>
+                    </Timeline>
+                ))}
+            </>
+        :
+            <Loading/>
+        }
         </>
     )
 }

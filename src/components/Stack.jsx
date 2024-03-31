@@ -20,6 +20,7 @@ import {
     SiBootstrap,
     SiNextdotjs
 } from "react-icons/si";
+import Loading from './Loading';
 
 export const svgComponents = {
     tailwind: <SiTailwindcss />,
@@ -46,48 +47,52 @@ export const svgComponents = {
 function Stack({ restBase, isDarkMode, lightMode, darkMode }) {
     const restPath = restBase + 'stack?_embed&acf_format=standard&orderby=id&order=asc';
     const [restData, setData] = useState([]);
+    const [isLoaded, setLoadStatus] = useState(false)
 
     useEffect(() => {
         const fetchData = async () => {
-            try {
-                const response = await fetch(restPath);
-                if (response.ok) {
-                    const data = await response.json();
-                    setData(data);
-                } else {
-                    console.error('Failed to fetch data');
-                }
-            } catch (error) {
-                console.error('Error fetching data:', error);
+            const response = await fetch(restPath)
+            if ( response.ok ) {
+                const data = await response.json()
+                setData(data)
+                setLoadStatus(true)
+            }else {
+                setLoadStatus(false)
             }
-        };
-        fetchData();
-    }, [restPath]);
+        }
+        fetchData()
+    }, [restPath])
 
     return (
-        <div className='md:grid grid-cols-2 grid-rows-2 gap-4'>
-            {restData.map((tech, index) => (
-                <div key={index} className={`${tech.title.rendered === "Web Development" ? "col-span-2" : ''} mb-4 p-2 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
-                    <section>
-                        <h2 className='text-center text-2xl mt-2 lg:text-xl xl:text:2xl'>{tech.title.rendered}</h2>
-                        {tech.acf.stack && (
-                            <div className='flex flex-wrap justify-center'>
-                                {tech.acf.stack.map((tool, index) => {
-                                    // Convert tool name to lowercase and remove whitespace and special characters
-                                    const toolName = tool.toLowerCase().replace(/\s/g, '').replace(/\./g, '_');
-                                    return (
-                                        <div key={index} className={`flex w-[170px] h-14 items-center justify-center space-x-2 mr-2 my-4 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
-                                            {svgComponents[toolName]}
-                                            <p>{tool}</p>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        )}
-                    </section>
+        <>
+        {isLoaded ? 
+            <>
+                <div className='md:grid grid-cols-2 gap-x-4'>
+                    {restData.map((tech, index) => (
+                        <article key={index} className={`${tech.title.rendered === "Web Development" ? "col-span-2" : ''} mb-4 p-2 py-4 rounded-lg ${isDarkMode ? lightMode : darkMode}`}>
+                                <h2 className='text-center text-2xl mt-2 lg:text-xl xl:text:2xl'>{tech.title.rendered}</h2>
+                                {tech.acf.stack && (
+                                    <div className='flex flex-wrap justify-center'>
+                                        {tech.acf.stack.map((tool, index) => {
+                                            // Convert tool name to lowercase and remove whitespace and special characters
+                                            const toolName = tool.toLowerCase().replace(/\s/g, '').replace(/\./g, '_');
+                                            return (
+                                                <div key={index} className={`flex w-[170px] h-14 items-center justify-center space-x-2 m-4 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
+                                                    {svgComponents[toolName]}
+                                                    <p>{tool}</p>
+                                                </div>
+                                            );
+                                        })}
+                                    </div>
+                                )}
+                        </article>
+                    ))}
                 </div>
-            ))}
-        </div>
+            </>
+            :
+                <Loading/>
+        }
+        </>
     );
 }
 

@@ -9,7 +9,7 @@ function App({hero, home}) {
   return (
     <AnimatePresence>
       <ThemeProvider>
-        <Router basename="/">
+        <Router>
           <main id="main">
             <Routes>
                 <Route key = {hero} path='/' element={<Hero restBase = {restBase}/>}/>

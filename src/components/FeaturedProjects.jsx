@@ -4,9 +4,7 @@
         Accordion,
         AccordionHeader,
         AccordionBody,
-        
     } from "@material-tailwind/react";
-
     function Icon({ id, open }) {
         return (
         <svg
@@ -53,6 +51,7 @@
             }
             fetchData()
         }, [restPath])
+
         return(
             <>
             {isLoaded ?
@@ -63,9 +62,9 @@
                                         <h3>{item.title.rendered}</h3>
                                 </AccordionHeader>
                             <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
-                                <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
+                                <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
                                 <div className='p-2'>
-                                    <div className="flex items-center space-x-2 py-4">
+                                    <div className="flex items-center space-x-2">
                                         {item.acf.social_links && item.acf.social_links.map((link, index) => (
                                             <div key={`${link.links}-${index}`}>
                                                 {link.links.includes("github") ? (
