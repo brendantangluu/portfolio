@@ -1,9 +1,11 @@
 import loading from '../assets/loading.gif';
 
 const Loading = () => {
-    
     return (
-        <img src={loading} alt="Loading" className="loading" id="loading" />
+        <div className='w-full h-dvh flex flex-col justify-center items-center'>
+            <img src={loading} alt="Loading" className="loading w-56" id="loading" />
+        </div>
+
     )
 
 }
