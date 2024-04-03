@@ -29,8 +29,8 @@ function Hobbies({ restBase, isDarkMode, lightMode, darkMode }) {
                         <div className='flex flex-wrap justify-evenly'>
                             {restData[0].acf.hobbies.map((hobby, index) => {
                                 return (
-                                    <div key={index} className={`flex space-x-2 mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
-                                        <p>{hobby.hobby}</p>
+                                    <div key={index} className={` ${hobby.hobby != "Thriller TV Shows/Movies" ? "align-middle" : ""} flex w-[170px] h-14 text-center justify-center space-x-2 mr-2 my-4 p-1 px-2 rounded-lg font-bold border ${isDarkMode ? `border-white ${darkMode}` : `border-black ${lightMode}`}`}>
+                                        <p className={`${hobby.hobby != "Thriller TV Shows/Movies" ? "h-6 pt-2" : ""}`}>{hobby.hobby}</p>
                                     </div>
                                 );
                             })}

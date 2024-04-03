@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Route, Routes} from 'react-router-dom'
-import Home from './components/Home'
 import { ThemeProvider } from './DarkModeContext.jsx/ThemeContext'
-import Hero from './pages/Hero';
 import { AnimatePresence } from 'framer-motion';
+import Home from './components/Home'
+import Hero from './pages/Hero';
 
 function App({hero, home}) {
   const restBase = 'https://btech.codes/portfolio/wp-json/wp/v2/'

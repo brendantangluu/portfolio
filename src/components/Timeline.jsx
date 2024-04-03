@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
-import { Timeline,
+import { 
+    Timeline,
     TimelineItem,
     TimelineConnector,
     TimelineHeader,
@@ -9,7 +10,8 @@ import { Timeline,
     Collapse,
     Button,
     Card,
-    CardBody,} from "@material-tailwind/react";
+    CardBody,
+} from "@material-tailwind/react";
 import Loading from './Loading';
 
 function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
@@ -55,11 +57,11 @@ function ProjectTimeline ({restBase, isDarkMode, lightMode, darkMode}){
                                     {item.acf.date}
                                 </Typography>
                                 {item.acf.landing_page_alternate ?
-                                    isDarkMode ? <img className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
-                                    : <img className = "rounded-lg desktop:w-[700px]" src={item.acf.landing_page_alternate.sizes.medium_large} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+                                    isDarkMode ? <img loading="lazy" className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+                                    : <img loading="lazy" className = "rounded-lg desktop:w-[700px]" src={item.acf.landing_page_alternate.sizes.large} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
 
                                     :
-                                    <img className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
+                                    <img loading="lazy" className = "rounded-lg desktop:w-[700px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text} />
                                 } 
                                 <Button className = {`mt-4 transition-all hover:bg-gray-500 hover:text-black ${isDarkMode ? lightMode : darkMode}`} onClick={() => handleOpen(item.id)}>View Details</Button>
                                 <Collapse open={open === item.id}>

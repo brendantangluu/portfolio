@@ -62,7 +62,12 @@
                                         <h3>{item.title.rendered}</h3>
                                 </AccordionHeader>
                             <AccordionBody className = {`${isDarkMode ? darkMode : lightMode}`}>
-                                <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
+                            {item.acf.dark_mode_picture && item.acf.light_mode_picture ?
+                                    isDarkMode ? <img loading="lazy" className = "mb-4 mx-auto rounded-lg desktop:w-[700px]" src={item.acf.light_mode_picture.url} alt={item.acf.dark_mode_picture.alt} />
+                                    : <img loading="lazy" className = "mb-4 mx-auto rounded-lg desktop:w-[700px]" src={item.acf.dark_mode_picture.url} alt={item.acf.dark_mode_picture.alt} />
+                                    :
+                                    <img className = "mb-4 mx-auto rounded-lg desktop:w-[600px]" src={item._embedded['wp:featuredmedia'][0].media_details.sizes.full.source_url} alt={item._embedded['wp:featuredmedia'][0].alt_text}/>
+                                }
                                 <div className='p-2'>
                                     <div className="flex items-center space-x-2">
                                         {item.acf.social_links && item.acf.social_links.map((link, index) => (
